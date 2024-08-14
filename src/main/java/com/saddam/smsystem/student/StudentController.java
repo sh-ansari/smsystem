@@ -1,9 +1,8 @@
 package com.saddam.smsystem.student;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +15,27 @@ public class StudentController {
     @Autowired
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
+    }
+
+    @PostMapping
+    public Student save(@RequestBody Student student){
+        return studentService.save(student);
+    }
+
+    @GetMapping("/{email}")
+    public Student findByEmail(@PathVariable("email") String email){
+
+        return studentService.findByEmail(email);
+    }
+
+    @PutMapping("/{id}")
+    public Student updateStudent(@PathVariable Integer id, @RequestBody Student s){
+
+        return studentService.updateStudent(id, s);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteStudent(@PathVariable("id") Integer id){
+        studentService.deleteStudentById(id);
     }
 
     @GetMapping

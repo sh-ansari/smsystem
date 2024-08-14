@@ -1,24 +1,30 @@
 package com.saddam.smsystem.student;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "student")
 public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
     private String firstName;
 
     private String lastName;
 
+    @Column(unique = true)
     private String email;
     private String number;
     private int age;
 
-    public Student() {
+    public Integer getId() {
+        return id;
     }
 
-    public Student(String firstName, String lastName, String email, String number, int age) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.number = number;
-        this.age = age;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -61,13 +67,26 @@ public class Student {
         this.age = age;
     }
 
+    public Student() {
+    }
+
+    public Student(Integer id, String firstName, String lastName, String email, String number, int age) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.number = number;
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", number=" + number +
+                ", number='" + number + '\'' +
                 ", age=" + age +
                 '}';
     }
