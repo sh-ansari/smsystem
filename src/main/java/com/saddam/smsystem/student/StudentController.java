@@ -1,5 +1,6 @@
 package com.saddam.smsystem.student;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,12 +11,15 @@ import java.util.List;
 @RequestMapping("/api/v1/students")
 public class StudentController {
 
+    private final StudentService studentService;
+
+    @Autowired
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
+    }
+
     @GetMapping
-    public List<String> findAllStudent(){
-        return List.of(
-                "Saddam",
-                "Ammar",
-                "Rehan"
-        );
+    public List<Student> findAllStudent(){
+        return studentService.findAllStudent();
     }
 }
